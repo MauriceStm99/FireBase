@@ -1,7 +1,7 @@
 function onloadFunc(){
     console.log("test");
-    deleteData("/name/-OWfgxieHLX3TE7DACpX");                   //Diese Zeile ruft die Funktion deleteData() auf und löscht einen ganz bestimmten Eintrag unter dem Pfad
-    /name/-OWfgxieHLX3TE7DACpX in deiner Datenbank.
+    putData("/name/type", {name: "Maurice", lieblingsfrucht: "Banane"});                  
+    
 }
 
 const BASE_URL = "https://remotestorage-a334e-default-rtdb.europe-west1.firebasedatabase.app/";
@@ -30,3 +30,39 @@ async function deleteData(path=""){                             //Neue asynchron
     });                           
     return responseToJson = await response.json();              
 }
+
+async function putData(path = "", data = {}) {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return responseToJson = await response.json();
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("dataForm");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // verhindert Neuladen der Seite
+
+        // Werte aus dem Formular auslesen
+        const name = document.getElementById("name").value;
+        const frucht = document.getElementById("frucht").value;
+
+        // Neues Objekt mit zwei Datenfeldern
+        const userData = {
+            name: name,
+            lieblingsfrucht: frucht
+        };
+
+        // An Firebase senden
+        const result = await postData("/users", userData);
+        console.log("Daten erfolgreich gesendet:", result);
+
+        // Optional: Felder zurücksetzen
+        form.reset();
+    });
+});
