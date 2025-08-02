@@ -1,12 +1,12 @@
 function onloadFunc(){
     console.log("test");
-    postData("/name", {"banana": "rama"});  //Sendet ein neues Objekt { banana: "rama" } an den Pfad name in deiner Firebase-Datenbank.  Das heißt: Der Eintrag landet unter https://.../name.json.
+    postData("/name", {"banana": "rama"});                      //Sendet ein neues Objekt { banana: "rama" } an den Pfad name in deiner Firebase-Datenbank.  Das heißt: Der Eintrag landet unter https://.../name.json.
 }
 
 const BASE_URL = "https://remotestorage-a334e-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function loadData(path=""){                               //Asynchrone Funktion, um Daten zu laden (GET). Der Parameter path bestimmt, aus welchem "Ordner" bei Firebase gelesen wird.
-    let response = await fetch(BASE_URL + path + ".json");     //Sendet einen GET-Request an Firebase.WICHTIG: .json muss angehängt werden, damit Firebase die Anfrage versteht.
+    let response = await fetch(BASE_URL + path + ".json");      //Sendet einen GET-Request an Firebase.WICHTIG: .json muss angehängt werden, damit Firebase die Anfrage versteht.
     return responseToJson = await response.json();              //Wandelt die Antwort von Firebase (JSON-Text) in ein JavaScript-Objekt um und gibt es zurück.
 }
 
