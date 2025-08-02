@@ -7,6 +7,6 @@ const BASE_URL = "https://remotestorage-a334e-default-rtdb.europe-west1.firebase
 
 async function loadData(path=""){
     let response = await fetch(BASE_URL + path + ".json");     //Wenn wir auf die Firebase zugreifen wollen, müssen wir immer '.json' dahinter schreiben, sonst können wir nicht drauf zugreifen
-    let responseToJson = await response.json();
-    console.log(responseToJson);
+    return responseToJson = await response.json();
+    
 }
